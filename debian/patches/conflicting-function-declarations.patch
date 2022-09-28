@@ -1,0 +1,19 @@
+Description: Use proper function return types
+ Function declaration and definition return types should not differ.
+Author: Michael Tautschnig <mt@debian.org>
+Bug: http://sourceforge.net/p/avra/patches/15/
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/avra.h
++++ b/src/avra.h
+@@ -347,8 +347,8 @@
+ char *Space(char *n);
+ 
+ /* stdextra.c */
+-char *nocase_strcmp(char *s, char *t);
+-char *nocase_strncmp(char *s, char *t, int n);
++int nocase_strcmp(char *s, char *t);
++int nocase_strncmp(char *s, char *t, int n);
+ char *nocase_strstr(char *s, char *t);
+ int atox(char *s);
+ int atoi_n(char *s, int n);

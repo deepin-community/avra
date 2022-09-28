@@ -1,0 +1,116 @@
+avra (1.3.0-3) unstable; urgency=medium
+
+  * Use hardening options.
+  * Bump up standards version to 3.9.8
+  * New maintainer email address.
+
+ -- Milan Kupcevic <milan@debian.org>  Mon, 23 May 2016 23:54:18 -0400
+
+avra (1.3.0-2) unstable; urgency=low
+
+  * Update standards version to 3.9.6
+  * Lintian override license-problem-undefined-license for files containing 
+    interface definitions.
+  * Use proper function return types (closes: #749604)
+  * LP: #681491 was fixed in upstream version 1.3.0
+
+ -- Milan Kupcevic <milan@physics.harvard.edu>  Sat, 29 Nov 2014 21:35:16 -0500
+
+avra (1.3.0-1) unstable; urgency=low
+
+  * New upstream release (closes: #588507)
+    - fixes invalid comment characters (closes: #668631)
+  * New maintainer (closes: #691906)
+  * Transform source format to 3.0 (quilt)
+  * Update standards version to 3.9.4
+  * Bump debhelper compatibility to 9
+  * Remove Vcs-Git and Vcs-Browser control fields.
+  * debian/rules, debian/copyright, debian/watch, debian/avra.examples: Rewrite.
+  * debian/avra.1, debian/control: Update.
+  * debian/avra.manpages, debian/avra.install, debian/avra.docs: New files.
+  * Backport support for ATtiny20 with AVR8L.
+  * Add support and header files for ATtiny4, ATtiny5, ATtiny9 and ATtiny10.
+
+ -- Milan Kupcevic <milan@physics.harvard.edu>  Mon, 09 Sep 2013 23:15:14 -0400
+
+avra (1.2.3a-1) unstable; urgency=low
+
+  * New upstream release (closes: #507443).
+    - Fixes address range error (closes: #527978).
+  * Install register and bit-name definitions from AVR000.zip.
+  * Update standards version to 3.8.3.
+  * Use new Homepage control field.
+  * Add Vcs-Git and Vcs-Browser control fields.
+  * Change maintainer's email address.
+
+ -- Tobias Klauser <tklauser@distanz.ch>  Wed, 20 Jan 2010 15:24:49 +0100
+
+avra (1.2.2-1) unstable; urgency=low
+
+  * New upstream release
+  * Depends on automake1.9 now, regenerated autotools files
+    (01-autotools.dpatch)
+  * Update debhelper compatibility level from 4 to 5
+  * Do not ignore error messages in the clean target of debian/rules
+
+ -- Tobias Klauser <tklauser@access.unizh.ch>  Sat, 18 Aug 2007 14:19:48 +0200
+
+avra (1.2.1-1) unstable; urgency=low
+
+  * New upstream release (Closes: #314784)
+  * Add watch file
+
+ -- Tobias Klauser <tklauser@access.unizh.ch>  Sun, 14 Jan 2007 16:48:00 +0100
+
+avra (1.0.1-1) unstable; urgency=low
+
+  * New maintainer (Closes: #404467)
+  * Add manpage for avra (Closes: #360577). Thanks to Robert Lemmen
+  * Update standards version
+
+ -- Tobias Klauser <tklauser@access.unizh.ch>  Mon,  1 Jan 2007 15:14:40 +0100
+
+avra (1.0.1-0.1) unstable; urgency=low
+
+  * NMU.
+  * New upstream release including new device types that I need...
+  * SOURCE/Makefile: Fix upstream version to 1.0.1.
+  * debian/rules (build,clean,install): Adjust for new Makefile and 
+    sources location.
+
+ -- Torsten Landschoff <torsten@debian.org>  Wed, 29 Jun 2005 11:04:43 +0200
+
+avra (0.7-1) unstable; urgency=low
+
+  * New upstream version (closes: Bug#181858)
+  * Updated author's website address & copyright details
+
+ -- Jefferson E. Noxon <jeff@debian.org>  Tue, 25 Feb 2003 14:10:40 -0600
+
+avra (0.5-1) unstable; urgency=low
+
+  * New upstream version
+  * Added Build-Depends (closes: Bug#70139).
+
+ -- Jefferson E. Noxon <jeff@debian.org>  Sun,  5 Nov 2000 15:19:57 -0600
+
+avra (0.4-2) unstable; urgency=low
+
+  * Updated author's web, e-mail, and postal addresses
+  * Updated to comply with debian-policy 3.0.1.1
+  * Upload now contains pristine upstream source & patches (Fixes #44219)
+
+ -- Jefferson E. Noxon <jeff@debian.org>  Tue, 14 Sep 1999 23:14:48 -0500
+
+avra (0.4-1) unstable; urgency=low
+
+  * Upgraded to new upstream version.
+  * Compiled with glibc 2.1
+
+ -- Jefferson E. Noxon <jeff@planetfall.com>  Sun,  4 Apr 1999 11:03:50 -0500
+
+avra (0.2-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Jefferson E. Noxon <jeff@planetfall.com>  Mon, 28 Sep 1998 14:01:38 -0500

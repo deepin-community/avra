@@ -1,0 +1,63 @@
+Description: Add support for ATtiny4, ATtiny5, ATtiny9 and ATtiny10
+ Support for ATtiny4, ATtiny5, ATtiny9 and ATtiny10 microcontrollers 
+ based on ATtiny4/5/9/10 Datasheet 8127F-AVR-02/2013.
+Author: Milan Kupcevic <milan@physics.harvard.edu>
+Bug: http://sourceforge.net/p/avra/bugs/73/
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/device.c
++++ b/src/device.c
+@@ -49,10 +49,10 @@
+   /*        Name, Flash(words),RAM start, RAM size, EEPROM, flags */
+   {         NULL,     4194304,      0x60,  8388608,  65536, 0}, // Total instructions: 137
+   /* ATtiny Series */
+-  // ATtiny4
+-  // ATtiny5
+-  // ATtiny9
+-  {   "ATtiny10",         512,      0x00,        0,      0, DF_NO_MUL|DF_NO_JMP|DF_TINY1X|DF_NO_XREG|DF_NO_YREG|DF_NO_LPM_X|DF_NO_ELPM|DF_NO_SPM|DF_NO_ESPM|DF_NO_MOVW|DF_NO_BREAK|DF_NO_EICALL|DF_NO_EIJMP},
++  {   "ATtiny4",          256,      0x40,       32,      0, DF_AVR8L|DF_NO_MUL|DF_NO_JMP|DF_NO_LPM|DF_NO_ELPM|DF_NO_SPM|DF_NO_ESPM|DF_NO_MOVW|DF_NO_EICALL|DF_NO_EIJMP|DF_NO_LDD|DF_NO_STD},
++  {   "ATtiny5",          256,      0x40,       32,      0, DF_AVR8L|DF_NO_MUL|DF_NO_JMP|DF_NO_LPM|DF_NO_ELPM|DF_NO_SPM|DF_NO_ESPM|DF_NO_MOVW|DF_NO_EICALL|DF_NO_EIJMP|DF_NO_LDD|DF_NO_STD},
++  {   "ATtiny9",          512,      0x40,       32,      0, DF_AVR8L|DF_NO_MUL|DF_NO_JMP|DF_NO_LPM|DF_NO_ELPM|DF_NO_SPM|DF_NO_ESPM|DF_NO_MOVW|DF_NO_EICALL|DF_NO_EIJMP|DF_NO_LDD|DF_NO_STD},
++  {   "ATtiny10",         512,      0x40,       32,      0, DF_AVR8L|DF_NO_MUL|DF_NO_JMP|DF_NO_LPM|DF_NO_ELPM|DF_NO_SPM|DF_NO_ESPM|DF_NO_MOVW|DF_NO_EICALL|DF_NO_EIJMP|DF_NO_LDD|DF_NO_STD},
+   {   "ATtiny11",         512,      0x00,        0,      0, DF_NO_MUL|DF_NO_JMP|DF_TINY1X|DF_NO_XREG|DF_NO_YREG|DF_NO_LPM_X|DF_NO_ELPM|DF_NO_SPM|DF_NO_ESPM|DF_NO_MOVW|DF_NO_BREAK|DF_NO_EICALL|DF_NO_EIJMP},
+   {   "ATtiny12",         512,      0x00,        0,     64, DF_NO_MUL|DF_NO_JMP|DF_TINY1X|DF_NO_XREG|DF_NO_YREG|DF_NO_LPM_X|DF_NO_ELPM|DF_NO_SPM|DF_NO_ESPM|DF_NO_MOVW|DF_NO_BREAK|DF_NO_EICALL|DF_NO_EIJMP},
+   {   "ATtiny13",         512,      0x60,       64,     64, DF_NO_MUL|DF_NO_JMP|DF_NO_ELPM|DF_NO_ESPM|DF_NO_EICALL|DF_NO_EIJMP},
+--- a/src/device.h
++++ b/src/device.h
+@@ -17,6 +17,8 @@
+ #define DF_NO_EICALL 0x00002000 // No EICALL instruction
+ #define DF_NO_EIJMP  0x00004000 // No EIJMP instruction
+ #define DF_AVR8L     0x00008000	/* ATtiny10, 20, 40 set No ADIW, SBIW, one word LDS/STS */
++#define DF_NO_LDD    0x00010000 // No LDD instruction
++#define DF_NO_STD    0x00020000 // No STD instruction
+ 
+ struct device
+ 	{
+--- a/src/mnemonic.c
++++ b/src/mnemonic.c
+@@ -305,8 +305,8 @@
+ 	{"sts",   0x9200,  DF_TINY1X | DF_AVR8L},
+ 	{"ld",    0,          0},
+ 	{"st",    0,          0},
+-	{"ldd",   0,  DF_TINY1X},
+-	{"std",   0,  DF_TINY1X},
++	{"ldd",   0,  DF_TINY1X|DF_NO_LDD},
++	{"std",   0,  DF_TINY1X|DF_NO_STD},
+ 	{"count", 0,          0},
+ 	{"lpm",   0x9004, DF_NO_LPM|DF_NO_LPM_X},
+ 	{"lpm",   0x9005, DF_NO_LPM|DF_NO_LPM_X},
+@@ -330,10 +330,10 @@
+ 	{"st",    0x8200,          0},
+ 	{"st",    0x9201, DF_TINY1X},
+ 	{"st",    0x9202, DF_TINY1X},
+-	{"ldd",   0x8008, DF_TINY1X},
+-	{"ldd",   0x8000, DF_TINY1X},
+-	{"std",   0x8208, DF_TINY1X},
+-	{"std",   0x8200, DF_TINY1X},
++	{"ldd",   0x8008, DF_TINY1X|DF_NO_LDD},
++	{"ldd",   0x8000, DF_TINY1X|DF_NO_LDD},
++	{"std",   0x8208, DF_TINY1X|DF_NO_STD},
++	{"std",   0x8200, DF_TINY1X|DF_NO_STD},
+ 	{"lds",   0xa000, DF_TINY1X},
+ 	{"sts",   0xa800, DF_TINY1X},
+ 	{"end", 0, 0}

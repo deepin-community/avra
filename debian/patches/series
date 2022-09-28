@@ -1,0 +1,4 @@
+AVR8L-plus-attiny20-git-b13b7c.patch
+attiny4-5-9-10src.patch
+tn4-5-9-10def.inc.patch
+conflicting-function-declarations.patch

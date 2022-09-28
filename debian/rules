@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+
+%:
+	dh $@ --sourcedirectory=src
+
+override_dh_auto_configure:
+	cd src; AUTOMAKE="automake --foreign" autoreconf -i
+	dh_auto_configure --sourcedirectory=src
+
+override_dh_installchangelogs:
+	dh_installchangelogs doc/ChangeLog.html
